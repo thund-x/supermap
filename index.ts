@@ -51,6 +51,22 @@ export class SuperMap<K, V> extends Map<K, V> {
         return super.set(key, value);
     }
 
+    /** Update an entry without changing its TTL. If the entry doesn't exist, it returns `false`. */
+    public update(key: K, value: V): boolean {
+        if (!super.has(key)) {
+            return false;
+        }
+
+        const itemsLimit = this.#options.itemsLimit;
+        if (itemsLimit > 0 && this.size >= itemsLimit && !this.has(key)) {
+            this.delete(this.first(true)!);
+        }
+
+        super.set(key, value);
+
+        return true;
+    }
+
     /**
      * Identical to [Map.prototype.clear](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear) but with a second argument.
      * @param stopInterval If set to `true`, the sweeping interval is also stopped.
