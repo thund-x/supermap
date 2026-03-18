@@ -12,7 +12,7 @@
 
 # @thunder04/supermap
 
-Extended Map with Array-like methods with TS typings and ESM support. It's made for my projects, but you can use it too.
+Extended Map with Array-like methods with TS typings and ESM support.
 
 ## Features
 

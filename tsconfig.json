@@ -1,12 +1,19 @@
 {
     "compilerOptions": {
-        "forceConsistentCasingInFileNames": true,
-        "emitDeclarationOnly": true,
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "module": "CommonJS",
-        "declaration": true,
-        "target": "ESNext",
+        "lib": ["ESNext"],
+        "module": "ESNext",
+        "moduleDetection": "force",
+        "moduleResolution": null,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "outDir": "dist",
+        "skipLibCheck": true,
         "strict": true,
-    }
+        "target": "ESNext",
+        "verbatimModuleSyntax": true,
+    },
 }

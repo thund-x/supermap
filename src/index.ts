@@ -31,7 +31,10 @@ export class SuperMap<K, V> extends Map<K, V> {
 
     /** Converts the Map to an array of entries. */
     public toArray() { return Array.from(this.entries()); }
-    public delete(key: K) { return this[kDateCache]?.delete(key), super.delete(key); }
+
+    public override delete(key: K) {
+        return this[kDateCache]?.delete(key), super.delete(key);
+    }
 
     /**
      * Identical to [Map.prototype.set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/set) but with a third argument.
@@ -39,7 +42,7 @@ export class SuperMap<K, V> extends Map<K, V> {
      *  - It has no effect if `options.intervalTime` isn't provided.
      *  - `options.expireAfter` sums with `ttl`.
      */
-    public set(key: K, value: V, ttl = 0) {
+    public override set(key: K, value: V, ttl = 0) {
         if (!Number.isSafeInteger(ttl)) throw new TypeError('ttl must be a safe integer');
 
         const itemsLimit = this.#options.itemsLimit;
@@ -71,7 +74,7 @@ export class SuperMap<K, V> extends Map<K, V> {
      * Identical to [Map.prototype.clear](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear) but with a second argument.
      * @param stopInterval If set to `true`, the sweeping interval is also stopped.
      */
-    public clear(stopInterval = false) {
+    public override clear(stopInterval = false) {
         if (stopInterval) this.stopInterval();
         else this[kDateCache]?.clear();
         return super.clear();
@@ -212,7 +215,7 @@ export class SuperMap<K, V> extends Map<K, V> {
                 const iter = entries.next();
                 if (iter.done) break;
 
-                results.set(...iter.value);
+                results.set(iter.value[0], iter.value[1]);
             }
         }
 
@@ -231,7 +234,7 @@ export class SuperMap<K, V> extends Map<K, V> {
                 const iter = entries.next();
                 if (iter.done) break;
 
-                this.set(...iter.value);
+                this.set(iter.value[0], iter.value[1]);
             }
         }
 
@@ -319,11 +322,6 @@ export class SuperMap<K, V> extends Map<K, V> {
         }
     }
 }
-
-// CAUTION TS currently doesn't include this comment in the generated index.d.ts file.
-// As a result it throws an error when "skipLibCheck" is false.
-// @ts-expect-error
-export = SuperMap;
 
 export interface SuperMapOptions<K = any, V = any> {
     onSweep: (value: V, key: K) => any;
