@@ -1,38 +1,35 @@
 {
     "name": "@thunder04/supermap",
     "version": "4.0.0",
-    "description": "Extended JS Map with Array-like methods",
-    "bugs": "https://github.com/thunder04/supermap/issues",
     "author": "Thund (https://github.com/thund-x)",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/thund-x/supermap.git"
     },
-    "type": "module",
-    "license": "MIT",
+    "module": "src/index.ts",
+    "devDependencies": {
+        "@types/node": "^25.5.0",
+        "typescript": "^5.9.3"
+    },
     "exports": {
         "import": {
             "types": "./dist/index.d.ts",
             "default": "./dist/index.js"
         }
     },
+    "bugs": "https://github.com/thunder04/supermap/issues",
+    "description": "Extended JS Map with Array-like methods",
     "keywords": [
         "map",
         "array",
         "supermap"
     ],
-    "devDependencies": {
-        "typescript": "^5.9.3",
-        "@types/bun": "latest"
-    },
+    "license": "MIT",
+    "private": true,
     "scripts": {
         "build": "tsc",
         "prepublishOnly": "bun run build",
         "prepack": "bun run build"
     },
-    "dependencies": {
-        "@types/node": "^25.5.0"
-    },
-    "module": "src/index.ts",
-    "private": true
+    "type": "module"
 }
