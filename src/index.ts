@@ -1,4 +1,4 @@
-const NOOP = (k: any, v: any) => {};
+const NOOP = (_: any, __: any) => { };
 
 type OnEntryExpiry<K, V> = (key: K, value: V) => any;
 
@@ -48,7 +48,7 @@ export class SuperMap<K, V> extends Map<K, V> {
      * @param value The value of the new entry.
      * @param ttl Time to live duration of this entry (in milliseconds).
      */
-    public set(key: K, value: V, ttl = 0) {
+    public override set(key: K, value: V, ttl = 0) {
         if (!Number.isSafeInteger(ttl)) {
             throw new TypeError("ttl must be a safe integer");
         }
@@ -76,7 +76,7 @@ export class SuperMap<K, V> extends Map<K, V> {
         return this;
     }
 
-    public delete(key: K): boolean {
+    public override delete(key: K): boolean {
         const timeoutId = this.#timeouts.get(key);
 
         if (this.#timeouts.delete(key)) {
@@ -87,7 +87,7 @@ export class SuperMap<K, V> extends Map<K, V> {
     }
 
     /** Clears all entries. */
-    public clear() {
+    public override clear() {
         for (const key of this.keys()) {
             // Additional clean-up work is performed on deletion, hence why I can't use `super.clear()`.
             this.delete(key);
